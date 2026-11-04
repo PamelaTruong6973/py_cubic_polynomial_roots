@@ -39,3 +39,10 @@ roots that Cardano produces can differ only at the level of float
 round-off. The ordering by `(real, imag)` is deterministic, but the
 *values* in that regime carry noise on the order of `sqrt(eps) ≈ 1e-8`.
 Compare with a tolerance rather than `==`.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
